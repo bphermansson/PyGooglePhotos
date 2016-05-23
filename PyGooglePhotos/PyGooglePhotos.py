@@ -3,6 +3,12 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from PIL import Image
 
+# Upload changes to Github:
+# git commit PyGooglePhotos.py
+# git push origin master
+# Update from Github
+# git pull
+
 #settings_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'settings.yaml')
 settings_file = "settings.yaml"
 
@@ -43,7 +49,7 @@ for file1 in photolist:
 	if file1['mimeType'] == "image/jpeg":
 		imageurl = file1['title']
 		imageid =  file1['id']
-		print 'title: %s' % (file1['title'])
+		#print 'title: %s' % (file1['title'])
 print "Open " + str(imageurl) + " id: " + str(imageid)
 
 # Download and show an image
