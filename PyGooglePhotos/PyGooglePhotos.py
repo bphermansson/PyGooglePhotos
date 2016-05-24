@@ -16,17 +16,20 @@ git pull
 apt-get install python-imaging-tk
 pip2 install pillow
 """
+
+def keyinput():
+	if key.upper() == 'Q':
+		print "Exit"
+		sys.exit()
+	
 def main():
-
-	#settings_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'settings.yaml')
 	settings_file = "settings.yaml"
-
 	photos=[]
-
 	gauth = GoogleAuth(settings_file=settings_file)
 	gauth.CommandLineAuth()
 	drive = GoogleDrive(gauth)
 
+	print "All files in root:"
 	# Auto-iterate through all files that matches this query
 	file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
 
@@ -48,7 +51,8 @@ def main():
 	# (found above)
 	#folder_id="1Q4Xk107tDLn4SdoHOqZwy5AGyvIm2bNO1uubxlMqx34"
 	#title: 2016, id: 1efl45Zs9_cFLEXzRERqqxIQp3Q
-	folder_id="1efl45Zs9_cFLEXzRERqqxIQp3Q" # List files in folder 2016
+	folder_id="1efl45Zs9_cFLEXzRERqqxIQp3Q" # 
+	print "List files in folder 2016"
 
 	_q = {'q': "'{}' in parents and trashed=false".format(folder_id)}
 	photolist = drive.ListFile(_q).GetList()
@@ -69,15 +73,16 @@ def main():
 	root = Tk() 
 	root.overrideredirect(True)
 	root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
-	 
+	# Keyboard input
+        root.bind('<Key>', keyinput)
 	# Screen size?
 	screen_width = root.winfo_screenwidth()
 	screen_height = root.winfo_screenheight()
-	print str(screen_width) + "-" + str(screen_height)
+	#print str(screen_width) + "-" + str(screen_height)
 
 	image = Image.open(imageurl)
 	width, height = image.size
-	print str(width) + "-" + str(height)
+	#print str(width) + "-" + str(height)
 	image = image.resize((screen_width, screen_height), Image.ANTIALIAS) 
 	img = ImageTk.PhotoImage(image)
 	
